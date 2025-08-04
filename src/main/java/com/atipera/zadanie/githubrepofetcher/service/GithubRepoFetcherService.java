@@ -1,16 +1,14 @@
 package com.atipera.zadanie.githubrepofetcher.service;
-
 import com.atipera.zadanie.githubrepofetcher.model.Branch;
 import com.atipera.zadanie.githubrepofetcher.model.GithubRepository;
 import com.atipera.zadanie.githubrepofetcher.response.RepositoryResponse;
-import com.atipera.zadanie.githubrepofetcher.response.UserNotFoundException;
+import com.atipera.zadanie.githubrepofetcher.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,9 +35,7 @@ public class GithubRepoFetcherService {
                 .toUriString();
 
         try {
-
             GithubRepository[] repositories = restTemplate.getForObject(url, GithubRepository[].class);
-
             return Arrays.stream(repositories)
                     .filter(repository -> !repository.isForked())
                     .map(repo -> {
@@ -48,7 +44,7 @@ public class GithubRepoFetcherService {
                     })
                     .collect(Collectors.toList());
         } catch (HttpClientErrorException.NotFound e) {
-            throw new UserNotFoundException(e.getMessage());
+            throw new UserNotFoundException("Username of " + username + " was not found");
         }
 
     }
