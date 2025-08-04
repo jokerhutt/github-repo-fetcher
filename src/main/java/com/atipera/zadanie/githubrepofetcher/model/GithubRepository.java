@@ -1,12 +1,13 @@
 package com.atipera.zadanie.githubrepofetcher.model;
 
-public class GithubRepository {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    private String name;
-    private boolean isForked;
-    private GithubRepositoryOwner owner;
+import java.util.List;
 
+public record GithubRepository (
+        String name,
+        GithubRepositoryOwner owner,
+        @JsonProperty("fork") boolean isForked,
+        List<Branch> branches
 
-
-
-}
+) {}
