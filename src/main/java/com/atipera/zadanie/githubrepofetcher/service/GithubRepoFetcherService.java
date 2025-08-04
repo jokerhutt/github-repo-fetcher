@@ -3,6 +3,7 @@ package com.atipera.zadanie.githubrepofetcher.service;
 import com.atipera.zadanie.githubrepofetcher.model.Branch;
 import com.atipera.zadanie.githubrepofetcher.model.GithubRepository;
 import com.atipera.zadanie.githubrepofetcher.response.RepositoryResponse;
+import com.atipera.zadanie.githubrepofetcher.response.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,7 @@ public class GithubRepoFetcherService {
                     })
                     .collect(Collectors.toList());
         } catch (HttpClientErrorException.NotFound e) {
-            throw new RuntimeException(e.getMessage());
+            throw new UserNotFoundException(e.getMessage());
         }
 
     }
@@ -57,7 +58,7 @@ public class GithubRepoFetcherService {
         String url = UriComponentsBuilder.fromUriString(githubApiUrl)
                 .path("/repos/{username}/{repositoryName}/branches")
                 .queryParam("type", "all")
-                .buildAndExpand(username)
+                .buildAndExpand(username, repositoryName)
                 .toUriString();
 
         Branch[] branches = restTemplate.getForObject(url, Branch[].class);
