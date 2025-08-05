@@ -1,6 +1,16 @@
 # Github Repository Fetcher for Atipera
 Basic API that returns all non-forked repository names and owner logins, as well as their respective branches, including each branches name and head commit's sha
 
+## Table of Contents
+1. [Overview](#overview)
+2. [Assumptions and Notes](#assumptions-and-notes)
+3. [Requirements](#requirements)
+4. [Running the Project](#running-the-project)
+5. [Usage](#usage)
+6. [Example Output](#example-output)
+7. [Running Tests](#running-tests)
+8. [Errors](#errors)
+
 ## Overview
 This Repository contains my solution to Atipera's Github repo/branch fetcher recruitment task. The instructions are:
 As an api consumer, I would like to list all his github repositories, which are not forks. Information, which I require in the response, is:
@@ -24,17 +34,23 @@ As per the requirements of not doing more than necessary, this solution:
 - Only returns the top 30 repositories (due to explicit instruction to NOT include pagination anywhere)
 
 ## Requirements
-Java 21+ 
+- Java 21+ 
 
 ## Running the Project
 Clone the project
 ```
 git clone https://github.com/jokerhutt/github-repo-fetcher.git
 ```
+Navigate to project directory
+```
+cd /path/to/github-repo-fetcher
+```
+
 Run the Application
 ```
 ./mvnw spring-boot:run
 ```
+
 
 ## Usage
 By default, the API is available at http://localhost:8080. If port 8080 is unavailable on your system, adjust it accordingly in the application.properties file.
