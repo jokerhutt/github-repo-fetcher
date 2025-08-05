@@ -30,23 +30,26 @@ public class GithubRepoFetcherService {
 
         String url = UriComponentsBuilder.fromUriString(githubApiUrl)
                 .path("/users/{username}/repos")
-                .queryParam("type", "all")
+                .queryParam("type", "owner")
                 .buildAndExpand(username)
                 .toUriString();
 
-        try {
-            GithubRepository[] repositories = restTemplate.getForObject(url, GithubRepository[].class);
+        GithubRepository[] repositories;
+
+            try {
+                repositories = restTemplate.getForObject(url, GithubRepository[].class);
+            }
+            catch (HttpClientErrorException.NotFound e) {
+                throw new UserNotFoundException("Username of " + username + " was not found");
+            }
             return Arrays.stream(repositories)
                     .filter(repository -> !repository.isForked())
                     .map(repo -> {
+                        System.out.println("Repo name: " + repo.name());
                         List<Branch> branches = getRepositoryBranches(username, repo.name());
                         return new RepositoryResponse(repo.name(), repo.owner().login(), branches);
                     })
                     .collect(Collectors.toList());
-        } catch (HttpClientErrorException.NotFound e) {
-            throw new UserNotFoundException("Username of " + username + " was not found");
-        }
-
     }
 
     private List<Branch> getRepositoryBranches (String username, String repositoryName) {
@@ -60,12 +63,11 @@ public class GithubRepoFetcherService {
         Branch[] branches = restTemplate.getForObject(url, Branch[].class);
 
         return Arrays.stream(branches)
+
                 .map(branch -> new Branch(branch.name(), branch.headCommit()))
+                .peek(System.out::println)
                 .collect(Collectors.toList());
-
     }
-
-
 
 
 }
