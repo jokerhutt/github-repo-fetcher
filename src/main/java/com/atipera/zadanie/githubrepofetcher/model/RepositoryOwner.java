@@ -1,3 +1,3 @@
 package com.atipera.zadanie.githubrepofetcher.model;
 
-public record GithubRepositoryOwner (String login) {}
+public record RepositoryOwner(String login) {}

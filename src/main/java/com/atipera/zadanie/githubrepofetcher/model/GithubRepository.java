@@ -6,7 +6,7 @@ import java.util.List;
 
 public record GithubRepository (
         String name,
-        GithubRepositoryOwner owner,
+        RepositoryOwner owner,
         @JsonProperty("fork") boolean isForked,
         List<Branch> branches
 
