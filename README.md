@@ -1,5 +1,5 @@
 # Github Repository Fetcher for Atipera
-Basic API that returns all non-forked repository names and owner logins, as well as their respective branches, including each branches name and head commit's sha
+Basic API that, for a given user, returns all non-forked repository names and owner logins, as well as their respective branches, including each branches name and head commit's sha.
 
 ## Table of Contents
 1. [Overview](#overview)
