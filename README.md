@@ -35,24 +35,25 @@ Run the Application
 ```
 ./mvnw spring-boot:run
 ```
+
 ## Usage
-By default, the API is available at http://localhost:8080. If port 8080 is unavailable on your system, adjust it accordingly in the application configuration.
+By default, the API is available at http://localhost:8080. If port 8080 is unavailable on your system, adjust it accordingly in the application.properties file.
 
 Once you have the application running, you can fetch the repositories and branches of a given user using the following GET request:
 ```
-GET /api/repositories/{username}
+GET /api/github/{username}/repositories
 ```
 Example Request (Browser)
 ```
-http://localhost:8080/api/repositories/torvalds
+http://localhost:8080/api/github/torvalds/repositories
 ```
 Example Request (cURL)
 ```
-curl --request GET http://localhost:8080/api/repositories/torvalds
+curl --request GET http://localhost:8080/api/github/torvalds/repositories
 ```
 Example Request (Postman)
 ```
-http://localhost:8080/api/repositories/torvalds
+http://localhost:8080/api/github/torvalds/repositories
 ```
 
 ## Example Output
