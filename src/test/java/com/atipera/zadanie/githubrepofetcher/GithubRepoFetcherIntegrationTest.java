@@ -25,8 +25,10 @@ class GithubRepoFetcherIntegrationTest {
         assertThat(response.getBody()).isNotEmpty();
 
         for (RepositoryResponse repo : response.getBody()) {
+
             assertThat(repo.repositoryName()).isNotEmpty();
             assertThat(repo.ownerLogin()).isEqualTo(username);
+
             repo.branches().forEach(branch -> {
                 assertThat(branch.name()).isNotEmpty();
                 assertThat(branch.headCommit().sha()).isNotEmpty();
